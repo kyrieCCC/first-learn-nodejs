@@ -2,8 +2,20 @@ const Koa = require('koa')
 const server = new Koa();
 const { router } = require('./src/router/router')
 const cors = require('@koa/cors')
+const koabody = require('koa-body')
+const Path = require('path')
 
 server.use(cors())
+
+server.use(koabody({
+    multipart: true, //将正文进行分析
+    encoding: 'utf-8', //使用UTF-8进行解析
+    formidable: {
+        uploadDir: Path.join(process.cwd()),  // 上传目录, 默认放置于启动程序的根目录
+        keepExtensions: true,    // 保持文件的后缀
+        maxFieldsSize: 10485760   // 默认文件大小10mb
+    }
+}))
 
 server
     .use(router.routes())

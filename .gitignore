@@ -1,0 +1,2 @@
+#忽略所有子目录下的.DS_Store
+node_modules/
