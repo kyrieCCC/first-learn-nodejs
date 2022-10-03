@@ -25,9 +25,16 @@ async function getUserById(username) {
     
 }
 
+async function getUserInDatabase() {
+  const ins = await main()
+  const [rows, fields] = await ins.execute("SELECT username,age,sex FROM `user`");
+  return rows
+}
+
 // getUserById(wlc)
 module.exports = {
   getUserById,
+  getUserInDatabase
 };
 
 // simple query

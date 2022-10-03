@@ -1,5 +1,6 @@
 const { getUserById } = require('../database/database')
 const { jwtCreateSv } = require('../middleware/jwt')
+const { getUserInDatabase } = require('../database/database')
 
 
 async function getUser(username, password) {
@@ -19,6 +20,12 @@ async function getUser(username, password) {
     return null
 }
 
+async function getUsers() {
+    const rows = await getUserInDatabase()
+    return rows || []
+}
+
 module.exports = {
-    getUser
+    getUser,
+    getUsers
 }

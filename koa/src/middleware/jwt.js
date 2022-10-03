@@ -12,11 +12,13 @@ async function jwtValidateMd(ctx, next) {
     else {
         const token = ctx.headers.token
         if (jwtDecodeSv(token, cusSecret)) {
-            await next
+            await next()
         }
-        ctx.body = {
-            success: false,
-            msg: 'token验证失败'
+        else {
+            ctx.body = {
+                success: false,
+                msg: 'token验证失败'
+            }
         }
     }
 }
@@ -25,7 +27,7 @@ async function jwtValidateMd(ctx, next) {
 function jwtCreateSv(content) {
     // return token = JwtToken.sign(content, secret)
     // console.log(JwtToken.sign(content, cusSecret))
-    return token = JwtToken.sign({ ...content, exp: Math.floor(Date.now()) / 1000 + 60*60}, cusSecret)
+    return token = JwtToken.sign({ ...content, exp: Math.floor(Date.now()) / 1000 + 60 * 60}, cusSecret)
 }
 
 function jwtDecodeSv(token) {
