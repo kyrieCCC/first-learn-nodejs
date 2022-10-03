@@ -4,7 +4,13 @@ const { router } = require('./src/router/router')
 const cors = require('@koa/cors')
 const koabody = require('koa-body')
 const Path = require('path')
+const { errorHandle } = require('./src/middleware/error')
+const { jwtValidateMd } = require('./src/middleware/jwt')
 
+
+// server.use(errorHandle)
+
+server.use(jwtValidateMd)
 server.use(cors())
 
 server.use(koabody({

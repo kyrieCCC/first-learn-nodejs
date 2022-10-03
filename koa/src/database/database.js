@@ -1,5 +1,6 @@
 // get the client
 const mysql = require("mysql2/promise");
+const mySqlConn = require('../../config.json')
 
 let connection = null;
 // create the connection to database

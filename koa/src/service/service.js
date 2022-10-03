@@ -1,4 +1,6 @@
 const { getUserById } = require('../database/database')
+const { jwtCreateSv } = require('../middleware/jwt')
+
 
 async function getUser(username, password) {
     // if (User[username] && User[username].password === password) {
@@ -11,7 +13,8 @@ async function getUser(username, password) {
     }
     const user = rows[0]
     if (user.password === password) {
-        return user
+        const token = jwtCreateSv(user)
+        return {...user, token}
     }
     return null
 }
