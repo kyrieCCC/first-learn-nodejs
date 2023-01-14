@@ -1,6 +1,7 @@
 const http = require('http')
 const { url } = require('inspector')
 const { router } = require('./router.js')
+const { saveFile } = require('./util.js')
 
 const server = http.createServer((request, response) => {
     //可以在这个函数内操作处理请求与响应
@@ -15,8 +16,9 @@ const server = http.createServer((request, response) => {
     //二.后端router
     const urlData = parserUrl(request.url)
     const aimController = router[urlData.path]
+    console.log(urlData.params[0])
     if (aimController) {
-        aimController(response, urlData.params)
+        aimController(response, request, urlData.params[0])
     } else {
         response.end('no such url params')
     }
@@ -39,5 +41,5 @@ function parserUrl(url) {
 }
 
 
-server.listen(8080, '192.168.0.106', () => { console.log('network http://192.168.0.106:8080') })
+server.listen(8080, '127.0.0.1', () => { console.log('network http://127.0.0.1:8080') })
 //监听主机hostname上的8080端口，并在服务器启动时执行箭头函数，打印出目标的网址
