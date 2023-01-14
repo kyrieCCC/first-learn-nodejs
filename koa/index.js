@@ -10,7 +10,7 @@ const { jwtValidateMd } = require('./src/middleware/jwt')
 
 // server.use(errorHandle)
 server.use(cors())
-server.use(jwtValidateMd)
+server.use(jwtValidateMd) //进行JWT登录验证
 
 server.use(koabody({
     multipart: true, //将正文进行分析

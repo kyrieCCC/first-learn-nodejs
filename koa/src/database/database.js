@@ -8,12 +8,7 @@ async function main() {
   if (connection) {
     return connection;
   }
-  connection = await mysql.createConnection({
-    host: "192.168.126.88",
-    user: "root",
-    password: "123456",
-    database: "nodejs-mysql",
-  });
+  connection = await mysql.createConnection(mySqlConn);
   return connection;
 }
 
@@ -27,7 +22,7 @@ async function getUserById(username) {
 
 async function getUserInDatabase() {
   const ins = await main()
-  const [rows, fields] = await ins.execute("SELECT username,age,sex FROM `user`");
+  const [rows, fields] = await ins.execute("SELECT * FROM `user`");
   return rows
 }
 
