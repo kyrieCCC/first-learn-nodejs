@@ -1,11 +1,17 @@
 // 练习读流
 const aimFile = require('node:path').join(__dirname, '/upup.jpg')
+const targerFile = require('node:path').join(__dirname, '/readFile.txt')
 const process = require('node:process')
+const path = require('node:path')
 const fs = require('node:fs')
+const { sep } = require('node:path')
+const { dir } = require('node:console')
+const { readFile } = require('node:fs')
 console.log(aimFile)
 
 //创建可读流
 const fileStream = fs.createReadStream(aimFile)
+const writableStream = fs.createWriteStream(targerFile)
 
 //通过监听获取到需要读的文件的buffer
 // fileStream.on('data', (chunk) => {
@@ -23,3 +29,7 @@ fileStream.on('close', () => {
 // fileStream.pipe(process.stdout)
 
 //2. 将文件放到一个新的文件中
+// fs.writeFileSync(`${__dirname}${path.sep}readFile.txt`, 'this is writable file', (err) => { console.log('success') })
+
+
+fileStream.pipe(writableStream)
